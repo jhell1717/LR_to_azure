@@ -1,5 +1,6 @@
-/*.joblib
-.ipynb_checkpoints/
+venv/
 __pycache__/
-/models/
-/data/
+*.pyc
+.pytest_cache/
+models/*.joblib
+models/*.onnx
