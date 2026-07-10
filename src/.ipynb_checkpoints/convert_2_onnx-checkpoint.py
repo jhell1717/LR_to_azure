@@ -9,7 +9,7 @@ def build_initial_types():
     initial_types = []
     for col in FEATURE_COLS:
         if col in CATEGORICAL_COLS:
-            initial_types.append((col, StringTensorType([None, 1])))
+            initial_types.alsppend((col, StringTensorType([None, 1])))
         else:
             initial_types.append((col, FloatTensorType([None, 1])))
     return initial_types

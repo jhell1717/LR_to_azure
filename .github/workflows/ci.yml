@@ -14,6 +14,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Download dataset
+        run: |
+          mkdir -p data
+          curl -o data/telco.csv https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv
+
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
