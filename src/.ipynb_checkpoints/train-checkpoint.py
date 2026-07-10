@@ -48,7 +48,7 @@ def main():
 
     print(classification_report(y_test, preds))
     print("ROC AUC:", roc_auc_score(y_test, probs))
-
+    os.makedirs(os.path.dirname(_DEFAULT_MODEL_PATH), exist_ok=True)
     joblib.dump(pipeline, _DEFAULT_MODEL_PATH)
     print("Saved to models/model.joblib")
 
