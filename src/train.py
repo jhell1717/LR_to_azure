@@ -7,6 +7,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, roc_auc_score
 
+import os
+
 from data import load_raw, get_X_y, CATEGORICAL_COLS, NUMERIC_COLS
 
 
@@ -26,6 +28,9 @@ def build_pipeline() -> Pipeline:
     ])
     return pipeline
 
+_DEFAULT_MODEL_PATH = os.path.join(
+    os.path.dirname(__file__), "..", "models", "model.joblib"
+)
 
 def main():
     df = load_raw()
@@ -44,7 +49,7 @@ def main():
     print(classification_report(y_test, preds))
     print("ROC AUC:", roc_auc_score(y_test, probs))
 
-    joblib.dump(pipeline, "/Users/joshuahellewell/Desktop/01-dev/ml_deploy/src/models/model.joblib")
+    joblib.dump(pipeline, _DEFAULT_MODEL_PATH)
     print("Saved to models/model.joblib")
 
 

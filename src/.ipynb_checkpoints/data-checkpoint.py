@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 TARGET = "Churn"
 ID_COL = "customerID"
@@ -13,7 +14,11 @@ NUMERIC_COLS = ["tenure", "MonthlyCharges", "TotalCharges"]
 
 FEATURE_COLS = CATEGORICAL_COLS + NUMERIC_COLS
 
-def load_raw(path: str="/Users/joshuahellewell/Desktop/01-dev/ml_deploy/data/telco.csv") -> pd.DataFrame:
+_DEFAULT_DATA_PATH = os.path.join(
+    os.path.dirname(__file__), "..", "data", "telco.csv"
+)
+
+def load_raw(path: str=_DEFAULT_DATA_PATH) -> pd.DataFrame:
     return pd.read_csv(path)
 
 def clean(df: pd.DataFrame) -> pd.DataFrame:
