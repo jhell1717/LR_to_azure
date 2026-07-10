@@ -16,6 +16,7 @@ def build_initial_types():
 
 _DEFAULT_ONNX_PATH = os.path.join(
     os.path.dirname(__file__), "..", "models", "model.onnx"
+)
 
 def main():
     pipeline = joblib.load("/Users/joshuahellewell/Desktop/01-dev/ml_deploy/src/models/model.joblib")
