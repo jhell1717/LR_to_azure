@@ -1,4 +1,5 @@
 import joblib
+import os
 import numpy as np
 from skl2onnx import convert_sklearn
 from skl2onnx.common.data_types import FloatTensorType, StringTensorType
