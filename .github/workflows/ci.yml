@@ -42,7 +42,7 @@ jobs:
 
       - name: Convert model to ONNX
         working-directory: src
-        run: python convert_to_onnx.py
+        run: python convert_2_onnx.py
 
       - name: Run tests
         run: pytest -v
