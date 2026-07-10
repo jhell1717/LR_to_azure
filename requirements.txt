@@ -1,0 +1,9 @@
+pandas
+scikit-learn
+skl2onnx
+onnxruntime
+fastapi
+uvicorn[standard]
+pytest
+httpx
+joblib
