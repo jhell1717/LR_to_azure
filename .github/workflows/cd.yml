@@ -59,4 +59,5 @@ jobs:
           az containerapp update \
             --name ${{ secrets.APP_NAME }} \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --image ${{ env.IMAGE_TAG }}
+            --image ${{ env.IMAGE_TAG }} \
+            --set-env-vars APPLICATIONINSIGHTS_CONNECTION_STRING="${{ secrets.APPINSIGHTS_CONNECTION_STRING }}"

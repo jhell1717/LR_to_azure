@@ -11,6 +11,13 @@ from pydantic import BaseModel
 from data import FEATURE_COLS, CATEGORICAL_COLS
 from onnx_utils import to_onnx_input
 import pandas as pd
+import logging
+
+
+from azure.monitor.opentelemetry import configure_azure_monitor
+
+if os.environ.get("APPLICATIONINSIGHTS_CONNECTION_STRING"):
+    configure_azure_monitor()
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "models", "model.onnx")
 
@@ -45,6 +52,21 @@ class CustomerFeatures(BaseModel):
 def health():
     return {"status":"ok"}
 
+# @app.post("/predict")
+# def predict(features: CustomerFeatures):
+#     row = pd.DataFrame([features.model_dump()])[FEATURE_COLS]
+#     onnx_inputs = to_onnx_input(row)
+#     results = session.run(output_names, onnx_inputs)
+
+#     label = int(results[0][0])
+#     prob_churn = float(results[1][0][1])
+#     return {
+#         "churn_prediction" : bool(label),
+#         "churn_probability" : round(prob_churn, 4),
+#     }
+
+logger = logging.getLogger(__name__)
+
 @app.post("/predict")
 def predict(features: CustomerFeatures):
     row = pd.DataFrame([features.model_dump()])[FEATURE_COLS]
@@ -53,8 +75,20 @@ def predict(features: CustomerFeatures):
 
     label = int(results[0][0])
     prob_churn = float(results[1][0][1])
+
+    logger.info(
+        "prediction_made",
+        extra={
+            "custom_dimensions": {
+                "churn_probability": prob_churn,
+                "contract": features.Contract,
+                "tenure": features.tenure,
+                "monthly_charges": features.MonthlyCharges,
+            }
+        },
+    )
+
     return {
-        "churn_prediction" : bool(label),
-        "churn_probability" : round(prob_churn, 4),
+        "churn_prediction": bool(label),
+        "churn_probability": round(prob_churn, 4),
     }
-                    
