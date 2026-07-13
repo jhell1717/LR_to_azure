@@ -15,7 +15,7 @@ def test_get_X_y_shapes():
 def test_no_leakage():
     df = load_raw()
     X, y = get_X_y(df)
-    assert (X['MonthlyCharges'] <= 0).sum() == 1
+    assert (X['MonthlyCharges'] <= 0).sum() == 0
     assert "Churn" not in X.columns
     assert "customerID" not in X.columns
 
