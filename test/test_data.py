@@ -3,7 +3,7 @@ from data import load_raw, get_X_y, FEATURE_COLS
 def test_data_loads():
     df = load_raw()
     assert len(df) > 7000
-    assert "Churn" in df.columns
+    assert "Churn" in df.columns    
 
 def test_get_X_y_shapes():
     df = load_raw()
@@ -15,5 +15,9 @@ def test_get_X_y_shapes():
 def test_no_leakage():
     df = load_raw()
     X, y = get_X_y(df)
+    assert (X['MonthlyCharges'] <= 0).sum() == 0
     assert "Churn" not in X.columns
     assert "customerID" not in X.columns
+
+
+
